@@ -1,15 +1,17 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
+// import axios from "axios";
+// import config from "../config.js";
 
-function App() {
-  return (
-    <div className="App">
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-      </Switch>
+
+function App(props) {
+
+  return(
+    <div>
+      <h1>The homepage</h1>
     </div>
-  );
+
+  )
 }
-//testest
+
 export default App;
