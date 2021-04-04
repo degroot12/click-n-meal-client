@@ -2,6 +2,8 @@ import React from "react";
 
 function Signin(props) {
     const {onSignin, error} = props;
+
+
     return (
         <div>
             <h3>Please sign in</h3>
@@ -16,8 +18,9 @@ function Signin(props) {
                     <input name="password" type="password" className="form-control" id="InputPassword" placeholder="password"/>
                     <small id="passworkHelp" className="form-text text-muted">Please use a capitals, numbers and special caracters</small>
                 </div>
-                {                
-                error && <p>{error.errorMessage}</p>        
+                {  
+                                  
+                error && <p>{error.error}</p>        
                 }
                 <button type="submit" className="btn btn-primary">Lets go!</button>
             </form>

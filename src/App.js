@@ -12,9 +12,6 @@ import About from "./components/About";
 import Error from "./components/Error";
 
 
-
-
-
 function App(props) {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [error, setError] = useState(null);
@@ -36,7 +33,7 @@ function App(props) {
           console.log('loggedindata ', response.data)
         })
         .catch((err) => {
-          setError('error with liggeindata', err);
+          setError('error with loggedin data', err);
         });      
     }
   }, []);
@@ -56,12 +53,14 @@ function App(props) {
         history.push("/signin"); 
       })
       .catch((err) => {
+        console.log('#### ', err.response)
         setError(err.response.data);      
       })
   };  
 
   const handleSignin = (event) => {
     event.preventDefault();
+    console.log('hereee')
 
     axios
       .post(`${config.API_URL}/api/signin`,
@@ -73,6 +72,7 @@ function App(props) {
         history.push("/")
       })
       .catch((err) => {
+        console.log('>>> ', err.response)
         setError(err.response.data);
       });  
   };
@@ -107,7 +107,7 @@ function App(props) {
 
         <Route 
           path="/signin"
-          render={() => {
+          render={(routeProps) => {
             return <Signin error={error} onSignin={handleSignin} {...routeProps}/>
           }} />          
 

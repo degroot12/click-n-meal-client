@@ -30,7 +30,7 @@ function MyNav(props) {
                 (<>
                   <NavDropdown.Item href="/about">About</NavDropdown.Item>
                   <NavDropdown.Divider /> 
-                  <NavDropdown.Item onClick={onlogout}>Logout</NavDropdown.Item>
+                  <NavDropdown.Item onClick={onLogout}>Logout</NavDropdown.Item>
                 </>
                  ) 
                 : 
@@ -38,7 +38,7 @@ function MyNav(props) {
                   <NavDropdown.Item href="/signup">Signup</NavDropdown.Item>  
                   <NavDropdown.Item href="/about">About</NavDropdown.Item>
                   <NavDropdown.Divider /> 
-                  <NavDropdown.Item href="/singin">Signin</NavDropdown.Item>
+                  <NavDropdown.Item href="/signin">Signin</NavDropdown.Item>
                 </>)
               }
               
