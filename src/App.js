@@ -6,7 +6,7 @@ import MyNav from "./components/MyNav";
 import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Signin from "./components/Signin";
-import Profile from "./components/Profile";
+import MyPage from "./components/MyPage";
 import CreateRecipe from "./components/CreateRecipe";
 import About from "./components/About";
 import Error from "./components/Error";
@@ -25,6 +25,8 @@ function App(props) {
   // Similar as componentDidMount
   // storing data loggedin user so no new login is necessary
   useEffect(() => {
+    // message for developers
+    console.log('*** Hi there! Good to see you here! Any great ideas for click \'n meal? Let us know! ***')
     if (!loggedInUser) {
       axios 
         .get(`${config.API_URL}/api/user`, { withCredentials: true })
@@ -50,7 +52,7 @@ function App(props) {
       { withCredentials: true } )
       .then((response) => {
         setLoggedInUser(response.data);
-        history.push("/signin"); 
+        history.push("/mypage"); 
       })
       .catch((err) => {
         console.log('#### ', err.response)
@@ -112,7 +114,7 @@ function App(props) {
           }} />          
 
         <Route 
-          path="/profile" component={Profile}
+          path="/mypage" component={MyPage}
         />  
 
         <Route 
