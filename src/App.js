@@ -6,13 +6,10 @@ import MyNav from "./components/MyNav";
 import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Signin from "./components/Signin";
-import Profile from "./components/Profile";
+import MyPage from "./components/MyPage";
 import CreateRecipe from "./components/CreateRecipe";
 import About from "./components/About";
 import Error from "./components/Error";
-
-
-
 
 
 function App(props) {
@@ -28,6 +25,8 @@ function App(props) {
   // Similar as componentDidMount
   // storing data loggedin user so no new login is necessary
   useEffect(() => {
+    // message for developers
+    console.log('*** Hi there! Good to see you here! Any great ideas for click \'n meal? Let us know! ***')
     if (!loggedInUser) {
       axios 
         .get(`${config.API_URL}/api/user`, { withCredentials: true })
@@ -36,7 +35,7 @@ function App(props) {
           console.log('loggedindata ', response.data)
         })
         .catch((err) => {
-          setError('error with liggeindata', err);
+          setError('error with loggedin data', err);
         });      
     }
   }, []);
@@ -53,15 +52,17 @@ function App(props) {
       { withCredentials: true } )
       .then((response) => {
         setLoggedInUser(response.data);
-        history.push("/signin"); 
+        history.push("/mypage"); 
       })
       .catch((err) => {
+        console.log('#### ', err.response)
         setError(err.response.data);      
       })
   };  
 
   const handleSignin = (event) => {
     event.preventDefault();
+    console.log('hereee')
 
     axios
       .post(`${config.API_URL}/api/signin`,
@@ -73,6 +74,7 @@ function App(props) {
         history.push("/")
       })
       .catch((err) => {
+        console.log('>>> ', err.response)
         setError(err.response.data);
       });  
   };
@@ -122,12 +124,12 @@ function App(props) {
 
         <Route 
           path="/signin"
-          render={() => {
+          render={(routeProps) => {
             return <Signin error={error} onSignin={handleSignin} {...routeProps}/>
           }} />          
 
         <Route 
-          path="/profile" component={Profile}
+          path="/mypage" component={MyPage}
         />  
 
         <Route 

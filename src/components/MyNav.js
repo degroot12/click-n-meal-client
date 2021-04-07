@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 
 function MyNav(props) {
+  
   const {onLogout, user} = props;
 
     return (
@@ -18,27 +19,35 @@ function MyNav(props) {
             alt="React Bootstrap logo"
           />
         </Navbar.Brand>  
-          <Nav.Link href="/profile">My Recipes</Nav.Link>
-          <Nav.Link href="/create-recipe">Create</Nav.Link>
+        {
+          user ? 
+          (<>
+            <Nav.Link href="/mypage">{user.username}' recipies</Nav.Link>
+            <Nav.Link href="/create-recipe">Create</Nav.Link>
+          </>)
+          :
+          (<>
+            <Nav.Link href="/signin">Signin</Nav.Link>
+            <Nav.Link href="/signup">or Join the club!</Nav.Link>
+          </>)      
+        }
+
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">       
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">             
+            <NavDropdown title="More" id="basic-nav-dropdown">             
               {
                 user ? 
                 (<>
                   <NavDropdown.Item href="/about">About</NavDropdown.Item>
                   <NavDropdown.Divider /> 
-                  <NavDropdown.Item onClick={onlogout}>Logout</NavDropdown.Item>
+                  <NavDropdown.Item onClick={onLogout}>Logout</NavDropdown.Item>
                 </>
                  ) 
                 : 
                 (<>                 
-                  <NavDropdown.Item href="/signup">Signup</NavDropdown.Item>  
                   <NavDropdown.Item href="/about">About</NavDropdown.Item>
-                  <NavDropdown.Divider /> 
-                  <NavDropdown.Item href="/singin">Signin</NavDropdown.Item>
                 </>)
               }
               
@@ -47,23 +56,6 @@ function MyNav(props) {
         </Navbar.Collapse>
       </Navbar>
 
-
-
-
-      //   <Navbar  bg="light"  expand="lg">
-      //     <Navbar.Toggle  aria-controls="basic-navbar-nav"  />
-      //     <Navbar.Collapse  id="basic-navbar-nav">
-      //       <Dropdown>
-              
-      //       </Dropdown>
-      //       <Nav  className="mr-auto">
-      //         <Link  to="/">Selector</Link>
-      //         <Link to="/signin">Signin</Link>
-      //         <Link to="/signup">Signup</Link>
-      //         <Link to="/about">About</Link>
-      //       </Nav>
-      //     </Navbar.Collapse>
-      // </Navbar>
     )
 }
 
