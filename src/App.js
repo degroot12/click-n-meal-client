@@ -89,6 +89,21 @@ function App(props) {
       })
   }
 
+  const handleCreateRecipe = (event) => {
+    event.preventDefault();
+    console.log('before then block',event)
+    axios
+      .post(`${config.API_URL}/api/create-recipe`, { name: event.target.name.value,
+        ingrName: event.target.ingrName.value,
+        ingrUnit: event.target.ingrUnit.value, ingrAmount: event.target.ingrAmount.value }, { withCredentials:true })
+      .then((response) => {
+        console.log('in thenblock----', response)
+      })
+      .catch((err) => {
+        setError(err.response.data)
+      })
+  }
+
   return(
     <div>
       <MyNav onLogout={handleLogout} user={loggedInUser}/>
@@ -116,7 +131,10 @@ function App(props) {
         />  
 
         <Route 
-          path="/create-recipe" component={CreateRecipe}
+          path="/create-recipe"
+          render={(routeProps) => {
+            return <CreateRecipe error={error} onCreateRecipe={handleCreateRecipe} {...routeProps}/>
+          }} 
         /> 
 
         <Route 
