@@ -32,7 +32,7 @@ function CreateRecipe(props) {
   </div>
   <div class="mb-3">
     <label for="exampleInputPassword2" class="form-label">Amount</label>
-    <input name="ingrAmount" type="text" class="form-control" id="ingrAmount" required/>
+    <input name="ingrAmount" type="number" class="form-control" id="ingrAmount" required/>
   </div>
                 <button type="submit" className="btn btn-primary">Lets go!</button>
             </form>

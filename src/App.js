@@ -94,15 +94,28 @@ function App(props) {
   const handleCreateRecipe = (event) => {
     event.preventDefault();
     console.log('before then block',event)
+    // for(let i=0; i<ingrName.length;i++){
+   
+    // }
+    let ingredients = [];
+    let ingrObj = {
+      name: event.target.ingrName.value,
+      unit: event.target.ingrUnit.value,
+      amount: event.target.ingrAmount.value
+    };
+    ingredients.push(ingrObj);
+
+    console.log('ingredients', ingredients)
+    console.log('ingrObject----', ingrObj)
+
     axios
       .post(`${config.API_URL}/api/create-recipe`, { name: event.target.name.value,
-        ingrName: event.target.ingrName.value,
-        ingrUnit: event.target.ingrUnit.value, ingrAmount: event.target.ingrAmount.value }, { withCredentials:true })
+        ingredients }, { withCredentials:true })
       .then((response) => {
         console.log('in thenblock----', response)
       })
       .catch((err) => {
-        setError(err.response.data)
+        setError(err)
       })
   }
 
