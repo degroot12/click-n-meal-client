@@ -93,16 +93,24 @@ function App(props) {
 
   const handleCreateRecipe = (event) => {
     event.preventDefault();
-    console.log('before then block',event)
+    console.log('before then block ---',event.target)
+
     // for(let i=0; i<ingrName.length;i++){
    
     // }
     let ingredients = [];
+    // let ingrObj = {
+    //   name: event.target.ingrName.value,
+    //   unit: event.target.ingrUnit.value,
+    //   amount: event.target.ingrAmount.value
+    // };
+
     let ingrObj = {
-      name: event.target.ingrName.value,
-      unit: event.target.ingrUnit.value,
-      amount: event.target.ingrAmount.value
+      name: event.target.name_0.value,
+      unit: event.target.unit_0.value,
+      amount: event.target.amount_0.value
     };
+
     ingredients.push(ingrObj);
 
     console.log('ingredients', ingredients)
