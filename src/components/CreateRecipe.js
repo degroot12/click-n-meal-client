@@ -1,5 +1,7 @@
 import React, {useState} from "react";
-import IngredientInput from "./IngredientInput"
+import axios from "axios";
+import config from "../config.js";
+import IngredientInput from "./IngredientInput";
 
 
 function CreateRecipe(props) {
@@ -22,13 +24,57 @@ function CreateRecipe(props) {
       updatedIngr[event.target.dataset.idx][event.target.className] = 
       event.target.value;
       setIngrState(updatedIngr)
-      // console.log('handleIngState --- ', event)
+      console.log('IngrState >>> --- ', ingrState)
     };
+
+
+    const handleCreateRecipe = (event) => {
+      event.preventDefault();
+      console.log('before then block ---',event.target)
+  
+      // for(let i=0; i<ingrName.length;i++){
+     
+      // }
+      let ingredients = [];
+      // let ingrObj = {
+      //   name: event.target.ingrName.value,
+      //   unit: event.target.ingrUnit.value,
+      //   amount: event.target.ingrAmount.value
+      // };
+  
+      let ingrObj = {
+        // name: event.target.name_0.value,
+        // unit: event.target.unit_0.value,
+        // amount: event.target.amount_0.value
+        name: "test4",
+        unit: "piece",
+        amount: 500
+      };
+  
+      ingredients = ingrState;
+  
+      console.log('ingrState --', ingrState)
+      console.log('ingredients --', ingredients)
+
+  
+      axios
+        .post(`${config.API_URL}/api/create-recipe`, { name: event.target.name.value,
+          ingredients }, { withCredentials:true })
+        .then((response) => {
+          console.log('in thenblock----', response)
+        })
+        .catch((err) => {
+          setError(err)
+        })
+    }
+   
+
+
 
     return(
         <div>
           <h3>Create here your own recipe!</h3>
-          <form onSubmit={onCreateRecipe} className="form">
+          <form onSubmit={handleCreateRecipe} className="form">
             <div className="mb-3">
               <label for="exampleInputPassword2" className="form-label">Name</label>
               <input 
