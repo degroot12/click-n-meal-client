@@ -106,9 +106,12 @@ function App(props) {
     // };
 
     let ingrObj = {
-      name: event.target.name_0.value,
-      unit: event.target.unit_0.value,
-      amount: event.target.amount_0.value
+      // name: event.target.name_0.value,
+      // unit: event.target.unit_0.value,
+      // amount: event.target.amount_0.value
+      name: "test4",
+      unit: "piece",
+      amount: 500
     };
 
     ingredients.push(ingrObj);
