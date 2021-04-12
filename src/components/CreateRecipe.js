@@ -1,19 +1,12 @@
 import React, {useState} from "react";
-<<<<<<< HEAD
-=======
 import IngredientInput from "./IngredientInput"
-
-
 function CreateRecipe(props) {
     const {onCreateRecipe} = props
     const blankIngr = {name: '', unit: '', amount: ''};
     const [ingrState, setIngrState] = useState ([ {...blankIngr} ]);
-    
-   
     const addIngr = () => {
       setIngrState([...ingrState, {...blankIngr} ])
     };
-
     const handleIngrChange = (event) => {
       const updatedIngr = [...ingrState];
       updatedIngr[event.target.dataset.idx][event.target.name] = 
@@ -21,7 +14,6 @@ function CreateRecipe(props) {
       setIngrState(updatedIngr)
       // console.log('handleIngState --- ', event)
     };
-
     return(
         <div>
           <h3>Create here your own recipe!</h3>
@@ -34,23 +26,19 @@ function CreateRecipe(props) {
                 className="form-control" 
                 id="name" required/>
             </div>            
-              
             <input 
               type="button"               
               value="Add new ingredient"
               className="btn btn-primary" 
               onClick={addIngr}
             />
-            
             {       
               ingrState.map((val, idx) => {
                 const nameId    = `name_${idx}`;
                 const unitId    = `unit_${idx}`;
                 const amountId  = `amount_${idx}`;
-              
                {/* data-idx: for controlling the inputs later */}
                   return (
-                    
                     <div className="mb-3" key={`name-${idx}`}>
                       <label className="form-label" htmlFor={nameId}>{`Ingredient #${idx + 1}`} </label>
                       <br/>
@@ -67,7 +55,6 @@ function CreateRecipe(props) {
                             <option value='rijst' selected='selected'>rijst</option>
                         </select>
                       </div>
-
                       <label htmlFor={amountId} className="form-label">Unit</label>
                       <input 
                         name={unitId} 
@@ -79,7 +66,6 @@ function CreateRecipe(props) {
                         onChange={handleIngrChange}
                         required
                       />
-
                       <label htmlFor={amountId} className="form-label">Amount</label>
                       <input 
                         name={amountId} 
@@ -92,20 +78,14 @@ function CreateRecipe(props) {
                         required
                       />
                   </div>                
-
                   )
               })
             }
-
-               
             <br/>
             {/* <input type="button" className="btn btn-primary mt-3" value="Save new recipe!" />     */}
             <button type="submit" className="btn btn-primary">Lets go!</button>
-
           </form>
         </div>
     )
 }
-
 export default CreateRecipe;
->>>>>>> origin/main
