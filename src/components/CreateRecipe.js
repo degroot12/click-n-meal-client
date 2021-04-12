@@ -14,7 +14,12 @@ function CreateRecipe(props) {
 
     const handleIngrChange = (event) => {
       const updatedIngr = [...ingrState];
-      updatedIngr[event.target.dataset.idx][event.target.name] = 
+      console.log('event.dataset.idx --', event.target.dataset.idx)
+      console.log('event.target name --', event.target.name)
+      console.log('event.target --', event.target.value)
+      console.log('update inr --', event.target.dataset.idx,event.target.className,"=",event.target.value  )
+      console.log('update get value -',updatedIngr )
+      updatedIngr[event.target.dataset.idx][event.target.className] = 
       event.target.value;
       setIngrState(updatedIngr)
       // console.log('handleIngState --- ', event)
@@ -58,7 +63,7 @@ function CreateRecipe(props) {
                           name={nameId} 
                           id={nameId} 
                           data-idx={nameId}
-                          className="form-control" 
+                          className="unit" 
                           >
                             <option value="water" selected="selected" >Water</option>
                             <option value='sla' selected='selected'>sla</option>
@@ -70,9 +75,9 @@ function CreateRecipe(props) {
                       <input 
                         name={unitId} 
                         id={unitId} 
-                        data-idx={unitId}
+                        data-idx={idx}
                         type="text" 
-                        className="form-control" 
+                        className="unit" 
                         value={ingrState[idx].unit}
                         onChange={handleIngrChange}
                         required
@@ -82,9 +87,9 @@ function CreateRecipe(props) {
                       <input 
                         name={amountId} 
                         id={amountId} 
-                        data-idx={amountId}
+                        data-idx={idx}
                         type="number" 
-                        className="form-control" 
+                        className="amount" 
                         value={ingrState[idx].amount}
                         onChange={handleIngrChange}
                         required

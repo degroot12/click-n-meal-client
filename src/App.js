@@ -130,8 +130,6 @@ function App(props) {
       })
   }
 
-  
-
   return(
     <div>
       <MyNav onLogout={handleLogout} user={loggedInUser}/>
