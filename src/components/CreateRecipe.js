@@ -1,25 +1,90 @@
-import React, {useState} from "react";
-import IngredientInput from "./IngredientInput"
+import React, {useState, useEffect} from "react";
+import axios from "axios";
+import config from "../config.js";
+import IngredientInput from "./IngredientInput";
+
+
 function CreateRecipe(props) {
     const {onCreateRecipe} = props
     const blankIngr = {name: '', unit: '', amount: ''};
     const [ingrState, setIngrState] = useState ([ {...blankIngr} ]);
+    const [dropDownIngrState, setDropDownIngrState] = useState([]);
+
+    useEffect(() => {
+      axios
+      .get(`${config.API_URL}/api/get-ingredients`)
+      .then((response) => {
+        console.log('in thenblock dropdown----', response.data)
+        setDropDownIngrState(response.data)
+      })
+      .catch((err) => {
+        console.log('fout')
+      })      
+    }, [])
+
+   
     const addIngr = () => {
       setIngrState([...ingrState, {...blankIngr} ])
     };
+
+    const options = [
+      { value: "apple", label: "Apple" },
+      { value: "orange", label: "Orange" },
+      { value: "grape", label: "Grape" }
+    ];
+
+    const handleIngrSelect = (event, idy) => {
+      // console.log('idx ---- ', event.target.dataset.idx)
+      // console.log('in handle select evt target>>> ', event.target.options)
+      // console.log('in handle select evt target selected index>>> ', event.target.options.selectedIndex)
+      console.log('name ingr ', options[event.target.options.selectedIndex].value)
+    };
+
     const handleIngrChange = (event) => {
       console.log(event.target.dataset.idx)
       console.log('name',event.target.name)
       const updatedIngr = [...ingrState];
-      updatedIngr[event.target.dataset.idx][event.target.name] = 
+      // console.log('event.dataset.idx --', event.target.dataset.idx)
+      console.log('event --', event)
+      // console.log('event.target --', event.target.value)
+      // console.log('update inr --', event.target.dataset.idx,event.target.className,"=",event.target.value  )
+      // console.log('update get value -',updatedIngr )
+
+      updatedIngr[event.target.dataset.idx][event.target.className] = 
       event.target.value;
       setIngrState(updatedIngr)
-      // console.log('handleIngState --- ', event)
+      // console.log('IngrState in handleChange >>> --- ', ingrState)
     };
+
+    const handleCreateRecipe = (event) => {
+      event.preventDefault();
+      console.log('before then block ---', event.target)
+      let ingredients = ingrState;  
+ 
+      axios
+        .post(`${config.API_URL}/api/create-recipe`, { name: event.target.name.value,
+          ingredients }, { withCredentials:true })
+        .then((response) => {
+          console.log('in thenblock----', response)
+        })
+        .catch((err) => {
+          setError(err)
+        })
+    };
+    
+
+
+
+   
+ 
+
+
+
     return(
         <div>
+
           <h3>Create here your own recipe!</h3>
-          <form onSubmit={onCreateRecipe} className="form">
+          <form onSubmit={handleCreateRecipe} className="form">
             <div className="mb-3">
               <label for="exampleInputPassword2" className="form-label">Name</label>
               <input 
@@ -41,6 +106,8 @@ function CreateRecipe(props) {
                 const amountId  = `amount_${idx}`;
                {/* data-idx: for controlling the inputs later */}
                   return (
+                    
+                    
                     <div className="mb-3" key={`name-${idx}`}>
                       <label className="form-label" htmlFor={nameId}>{`Ingredient #${idx + 1}`} </label>
                       <br/>
@@ -50,13 +117,25 @@ function CreateRecipe(props) {
                           name={nameId} 
                           id={nameId} 
                           data-idx={idx}
-                          className="form-control" 
+                          className="name" 
+                          onChange={handleIngrSelect}
+
                           >
-                            <option value="water" selected="selected" >Water</option>
-                            <option value='sla' selected='selected'>sla</option>
-                            <option value='rijst' selected='selected'>rijst</option>
-                        </select>
+                          {
+                            
+                            dropDownIngrState.map((val, idy) => {
+                              const dropdownId = `dropdownId${idy}`
+                              return(
+                                <option key={idy} value={val.name} selected='selected'>{val.name}</option>
+                              )
+
+                            })
+                          }
+
+                          </select>
                       </div>
+
+
                       <label htmlFor={amountId} className="form-label">Unit</label>
                       <input 
                         name={unitId} 

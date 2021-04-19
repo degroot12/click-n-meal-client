@@ -91,47 +91,6 @@ function App(props) {
       })
   }
 
-  const handleCreateRecipe = (event) => {
-    event.preventDefault();
-    console.log('before then block ---',event.target)
-
-    // for(let i=0; i<ingrName.length;i++){
-   
-    // }
-    let ingredients = [];
-    // let ingrObj = {
-    //   name: event.target.ingrName.value,
-    //   unit: event.target.ingrUnit.value,
-    //   amount: event.target.ingrAmount.value
-    // };
-
-    let ingrObj = {
-      // name: event.target.name_0.value,
-      // unit: event.target.unit_0.value,
-      // amount: event.target.amount_0.value
-      name: "test4",
-      unit: "piece",
-      amount: 500
-    };
-
-    ingredients.push(ingrObj);
-
-    console.log('ingredients', ingredients)
-    console.log('ingrObject----', ingrObj)
-
-    axios
-      .post(`${config.API_URL}/api/create-recipe`, { name: event.target.name.value,
-        ingredients }, { withCredentials:true })
-      .then((response) => {
-        console.log('in thenblock----', response)
-      })
-      .catch((err) => {
-        setError(err)
-      })
-  }
-
-  
-
   return(
     <div>
       <MyNav onLogout={handleLogout} user={loggedInUser}/>
@@ -161,7 +120,7 @@ function App(props) {
         <Route 
           path="/create-recipe"
           render={(routeProps) => {
-            return <CreateRecipe error={error} onCreateRecipe={handleCreateRecipe} {...routeProps}/>
+            return <CreateRecipe error={error} {...routeProps}/>
           }} 
         /> 
 
