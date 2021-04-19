@@ -8,6 +8,8 @@ function CreateRecipe(props) {
       setIngrState([...ingrState, {...blankIngr} ])
     };
     const handleIngrChange = (event) => {
+      console.log(event.target.dataset.idx)
+      console.log('name',event.target.name)
       const updatedIngr = [...ingrState];
       updatedIngr[event.target.dataset.idx][event.target.name] = 
       event.target.value;
@@ -47,7 +49,7 @@ function CreateRecipe(props) {
                         <select 
                           name={nameId} 
                           id={nameId} 
-                          data-idx={nameId}
+                          data-idx={idx}
                           className="form-control" 
                           >
                             <option value="water" selected="selected" >Water</option>
@@ -59,9 +61,9 @@ function CreateRecipe(props) {
                       <input 
                         name={unitId} 
                         id={unitId} 
-                        data-idx={unitId}
+                        data-idx={idx}
                         type="text" 
-                        className="form-control" 
+                        className="unit" 
                         value={ingrState[idx].unit}
                         onChange={handleIngrChange}
                         required
@@ -70,9 +72,9 @@ function CreateRecipe(props) {
                       <input 
                         name={amountId} 
                         id={amountId} 
-                        data-idx={amountId}
+                        data-idx={idx}
                         type="number" 
-                        className="form-control" 
+                        className="amount" 
                         value={ingrState[idx].amount}
                         onChange={handleIngrChange}
                         required
