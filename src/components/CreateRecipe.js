@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from "react";
+import AsyncSelect from 'react-select/async'
 import axios from "axios";
 import config from "../config.js";
 import IngredientInput from "./IngredientInput";
+import Select from 'react-select';
+
 
 
 function CreateRecipe(props) {
@@ -9,6 +12,7 @@ function CreateRecipe(props) {
     const blankIngr = {name: '', unit: '', amount: ''};
     const [ingrState, setIngrState] = useState ([ {...blankIngr} ]);
     const [dropDownIngrState, setDropDownIngrState] = useState([]);
+    const [inputValueState, setInputValueState] = useState("")
 
     useEffect(() => {
       axios
@@ -56,7 +60,7 @@ function CreateRecipe(props) {
 
     const handleCreateRecipe = (event) => {
       event.preventDefault();
-      console.log('before then block ---', event.target)
+      // console.log('before then block ---', event.target)
       let ingredients = ingrState;  
  
       axios
@@ -69,13 +73,28 @@ function CreateRecipe(props) {
           setError(err)
         })
     };
+
+  // ---- dynamic form search
+
     
+  const filterIngr = (inputValueState) => {
+    return dropDownIngrState.filter(i =>
+      i.name.toLowerCase().includes(inputValueState.toLowerCase())
+    );
+  };
 
+  const loadOptions = (inputValueState, callback) => {
+    setTimeout(() => {
+      callback(filterIngr(inputValueState));
+    }, 1000);
+  };
 
-
-   
- 
-
+  const handleInputChange = (newValue) => {
+    const inputValueState = newValue.replace(/\W/g, '');
+    setInputValueState(inputValueState)
+    console.log('inputValueState >>>  ', inputValueState)
+    return inputValueState;
+  };
 
 
     return(
@@ -112,6 +131,35 @@ function CreateRecipe(props) {
                     <div className="mb-3" key={`name-${idx}`}>
                       <label className="form-label" htmlFor={nameId}>{`Ingredient #${idx + 1}`} </label>
                       <br/>
+
+                      <div style={{color: "red"}}> 
+                       select test
+                       <pre>inputValue: "{inputValueState}"</pre>
+                        <AsyncSelect
+                        style={{color: "red"}}
+
+                          label="Single select"
+
+                          theme={theme => ({
+                            ...theme,
+                            borderRadius: 0,
+                            colors: {
+                              ...theme.colors,
+                              primary25: 'hotpink',
+                              primary: 'black',
+                              color: 'black',
+                            },
+                          })}
+                          cacheOptions
+                          loadOptions={loadOptions}
+                          defaultOptions
+                          onInputChange={handleInputChange}
+                          
+                          value={inputValueState}
+                        />
+                      </div>
+
+
                       <label className="form-label" htmlFor={nameId}>Choose ingredient: </label>
                       <div className="mb-3">
                         <select 
@@ -119,22 +167,15 @@ function CreateRecipe(props) {
                           id={nameId} 
                           data-idx={idx}
                           className="name" 
-                          onChange={handleIngrSelect}
+                        
 
                           >
-                          {
-                            
-                            dropDownIngrState.map((val, idy) => {
-                              const dropdownId = `dropdownId${idy}`
-                              return(
-                                <option key={idy} value={val.name} selected='selected'>{val.name}</option>
-                              )
-
-                            })
-                          }
+     
 
                           </select>
                       </div>
+
+
 
 
                       <label htmlFor={amountId} className="form-label">Unit</label>
