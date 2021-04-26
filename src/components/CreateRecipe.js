@@ -60,6 +60,14 @@ function CreateRecipe(props) {
       // console.log('IngrState in handleChange >>> --- ', ingrState)
     };
 
+
+    const handleIngrNameChange = (event) => {
+      console.log('event handleingrname----',event)
+      // const updatedIngr = [...ingrState]
+      // updatedIngr[event.name] = event.name;
+      // setIngrState(updatedIngr)
+    }
+
     const handleCreateRecipe = (event) => {
       event.preventDefault();
       // console.log('before then block ---', event.target)
@@ -92,7 +100,7 @@ function CreateRecipe(props) {
   };
 
   const handleInputChange = (newValue) => {
-    const inputValueState = newValue.replace(/\W/g, '');
+    const inputValueState = newValue.replace(/\W /g, '');
     setInputValueState(inputValueState)
     console.log('inputValueState >>>  ', inputValueState)
     return inputValueState;
@@ -131,6 +139,7 @@ function CreateRecipe(props) {
                       <label className="form-label" htmlFor={nameId}>{`Ingredient #${idx + 1}`} </label>
                       <br/>
 
+                      <label htmlFor={nameId} className="form-label">Name</label>
                       <div style={{color: "red"}}> 
                        select test
                        <pre>inputValue: "{inputValueState}"</pre>
@@ -153,13 +162,29 @@ function CreateRecipe(props) {
                           loadOptions={loadOptions}
                           defaultOptions
                           onInputChange={handleInputChange}
+                          onChange={handleIngrNameChange}
+                          name={nameId} 
+                          id={nameId} 
+                          data-idx={idx}
+                          className="name"
                           
-                          value={inputValueState}
-                        />
+                          // value={inputValueState}
+                          value={ingrState[idx].name}
+                        >
+                          <div name={nameId} 
+                          id={nameId} 
+                          data-idx={idx}
+                          className="name"
+                          onChange={handleIngrChange}
+                          value='water'
+                           >
+                            
+                          </div>
+                        </AsyncSelect>
                       </div>
 
 
-                      <label className="form-label" htmlFor={nameId}>Choose ingredient: </label>
+                      {/* <label className="form-label" htmlFor={nameId}>Choose ingredient: </label>
                       <div className="mb-3">
                         <select 
                           name={nameId} 
@@ -172,12 +197,12 @@ function CreateRecipe(props) {
      
 
                           </select>
-                      </div>
+                      </div> */}
 
 
 
 
-                      <label htmlFor={amountId} className="form-label">Unit</label>
+                      <label htmlFor={unitId} className="form-label">Unit</label>
                       <input 
                         name={unitId} 
                         id={unitId} 
