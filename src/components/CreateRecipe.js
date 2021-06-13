@@ -60,6 +60,14 @@ function CreateRecipe(props) {
       // console.log('IngrState in handleChange >>> --- ', ingrState)
     };
 
+
+    const handleIngrNameChange = (event) => {
+      console.log('event handleingrname----',event)
+      // const updatedIngr = [...ingrState]
+      // updatedIngr[event.name] = event.name;
+      // setIngrState(updatedIngr)
+    }
+
     const handleCreateRecipe = (event) => {
       event.preventDefault();
       // console.log('before then block ---', event.target)
@@ -92,7 +100,7 @@ function CreateRecipe(props) {
   };
 
   const handleInputChange = (newValue) => {
-    const inputValueState = newValue.replace(/\W/g, '');
+    const inputValueState = newValue.replace(/\W /g, '');
     setInputValueState(inputValueState)
     console.log('inputValueState >>>  ', inputValueState)
     return inputValueState;
@@ -140,6 +148,7 @@ function CreateRecipe(props) {
                       <label className="form-label" htmlFor={nameId}>{`Ingredient #${idx + 1}`} </label>
                       <br/>
 
+                      <label htmlFor={nameId} className="form-label">Name</label>
                       <div style={{color: "red"}}> 
                        select test
                        <pre>inputValue: "{inputValueState}"</pre>
@@ -177,7 +186,7 @@ function CreateRecipe(props) {
                       </div>
 
 
-                      <label className="form-label" htmlFor={nameId}>Choose ingredient: </label>
+                      {/* <label className="form-label" htmlFor={nameId}>Choose ingredient: </label>
                       <div className="mb-3">
                         <select 
                           name={nameId} 
@@ -190,7 +199,7 @@ function CreateRecipe(props) {
      
 
                           </select>
-                      </div>
+                      </div> */}
 
 
 
