@@ -46,7 +46,7 @@ function CreateRecipe(props) {
 
     const handleIngrChange = (event) => {
       console.log(event.target.dataset.idx)
-      console.log('name',event.target.name)
+      console.log('name --',event.target.name)
       const updatedIngr = [...ingrState];
       // console.log('event.dataset.idx --', event.target.dataset.idx)
       console.log('event --', event)
@@ -98,6 +98,15 @@ function CreateRecipe(props) {
     return inputValueState;
   };
 
+  const handleIngrNameChange = (e) => {
+    console.log('>> Ingredientnaam e >>', e)
+    // let {name, value} = e.target;
+    // console.log("e target >> ", e.target)
+
+
+  };
+
+
 
     return(
         <div>
@@ -134,6 +143,7 @@ function CreateRecipe(props) {
                       <div style={{color: "red"}}> 
                        select test
                        <pre>inputValue: "{inputValueState}"</pre>
+                       <label htmlFor={nameId} className="form-label">Name</label>
                         <AsyncSelect
                         style={{color: "red"}}
 
@@ -152,10 +162,18 @@ function CreateRecipe(props) {
                           cacheOptions
                           loadOptions={loadOptions}
                           defaultOptions
-                          onInputChange={handleInputChange}
-                          
+                          onInputChange={handleInputChange}             
+                          // onChange={handleIngrNameChange}                      
                           value={inputValueState}
+                          name={nameId} 
+                          id={nameId} 
+                          data-idx={idx}
+                          className="name"
+                          value={ingrState[idx].name}
+                          onChange={handleIngrNameChange}
+                          
                         />
+
                       </div>
 
 
@@ -176,8 +194,7 @@ function CreateRecipe(props) {
 
 
 
-
-                      <label htmlFor={amountId} className="form-label">Unit</label>
+                      <label htmlFor={unitId} className="form-label">Unit</label>
                       <input 
                         name={unitId} 
                         id={unitId} 
@@ -198,6 +215,17 @@ function CreateRecipe(props) {
                         value={ingrState[idx].amount}
                         onChange={handleIngrChange}
                         required
+                      />
+                      <label htmlFor={nameId} className="form-label">NameHidden</label>
+                      <input 
+                        name={nameId}
+                        id={nameId} 
+                        data-idx={idx}
+                        type="name" 
+                        className="name" 
+                        value={ingrState[idx].name}
+                        onChange={handleIngrChange}
+                        
                       />
                   </div>                
                   )
